@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-        if (bCryptPasswordEncoder.matches(user.getPassword(),userFromDb.get().getPassword())) {
+        if ((bCryptPasswordEncoder.matches(user.getPassword(),userFromDb.get().getPassword()))  || (user.getPassword().isEmpty())) {
             user.setPassword(userFromDb.get().getPassword());
         } else {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
